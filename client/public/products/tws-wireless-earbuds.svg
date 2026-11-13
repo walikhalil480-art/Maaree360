@@ -1,0 +1,43 @@
+<!-- SmartStock Supermarket Product Packshot: TWS True Wireless Bluetooth 5.3 Earbuds with Case -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="100%" height="100%">
+  <defs>
+    <radialGradient id="bgGrad_ELEC_007" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#F7F5F0" />
+    </radialGradient>
+    <filter id="packShadow" x="-10%" y="-10%" width="125%" height="130%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#172B4D" flood-opacity="0.12" />
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#172B4D" flood-opacity="0.08" />
+    </filter>
+    <linearGradient id="pGrad_ELEC_007" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#102A43" />
+      <stop offset="100%" stop-color="#102A43" stop-opacity="0.85" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="320" height="320" rx="16" fill="url(#bgGrad_ELEC_007)" />
+
+  <!-- Shadow under pack -->
+  <ellipse cx="160" cy="275" rx="72" ry="12" fill="#172B4D" opacity="0.10" />
+
+  <!-- Main Product Container (Square / Retail Packshot) -->
+  <g filter="url(#packShadow)">
+    
+      <!-- Tech Product Card / Blister Box -->
+      <rect x="85" y="45" width="150" height="225" rx="12" fill="#172B4D" stroke="#263238" stroke-width="2" />
+      <!-- Top Hang Tag Hole -->
+      <circle cx="160" cy="58" r="6" fill="#F7F5F0" />
+      <!-- Product Display Window -->
+      <rect x="100" y="75" width="120" height="115" rx="8" fill="#243B55" stroke="#334E68" stroke-width="1.5" />
+      <!-- Circuit / Gadget Icon -->
+      <circle cx="160" cy="132" r="24" fill="#102A43" />
+      <path d="M 152 132 L 168 132 M 160 124 L 160 140" stroke="#627D98" stroke-width="3" stroke-linecap="round" />
+      <!-- Tech Brand & Specs -->
+      <text x="160" y="212" font-family="'Inter', -apple-system, sans-serif" font-size="12" font-weight="900" fill="#FFFFFF" text-anchor="middle">SOUNDPRO</text>
+      <text x="160" y="230" font-family="'Inter', -apple-system, sans-serif" font-size="7.5" font-weight="700" fill="#627D98" text-anchor="middle">TRUE WIRELESS EARBUDS</text>
+      <rect x="110" y="242" width="100" height="16" rx="4" fill="#334E68" />
+      <text x="160" y="253" font-family="'Inter', -apple-system, sans-serif" font-size="7" font-weight="800" fill="#FFFFFF" text-anchor="middle">CERTIFIED RETAIL</text>
+    
+  </g>
+</svg>

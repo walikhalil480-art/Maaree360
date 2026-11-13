@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="100%" height="100%">
+  <defs>
+    <radialGradient id="bgGrad_ARIEL" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#E0F2F1" />
+    </radialGradient>
+    <filter id="packShadow" x="-10%" y="-10%" width="125%" height="130%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#172B4D" flood-opacity="0.12" />
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#172B4D" flood-opacity="0.08" />
+    </filter>
+    <linearGradient id="primaryGrad_ARIEL" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00695C" />
+      <stop offset="100%" stop-color="#00695C" stop-opacity="0.85" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="320" height="320" rx="16" fill="url(#bgGrad_ARIEL)" />
+
+  <!-- Shadow under pack -->
+  <ellipse cx="160" cy="275" rx="72" ry="12" fill="#172B4D" opacity="0.10" />
+
+  <!-- Main Product Container (Square / Retail Packshot) -->
+  <g filter="url(#packShadow)">
+    <!-- Package Body -->
+    <rect x="75" y="45" width="170" height="220" rx="14" fill="#FFFFFF" stroke="#E4E7EC" stroke-width="2" />
+    
+    <!-- Top Header Color Block -->
+    <path d="M 75 59 Q 75 45 89 45 L 231 45 Q 245 45 245 59 L 245 125 L 75 125 Z" fill="url(#primaryGrad_ARIEL)" />
+    
+    <!-- Accent Ribbon / Stripe -->
+    <rect x="75" y="125" width="170" height="6" fill="#00E676" />
+    
+    <!-- Brand Title -->
+    <text x="160" y="85" font-family="'Inter', -apple-system, BlinkMacSystemFont, sans-serif" font-size="20" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">
+      ARIEL
+    </text>
+    
+    <!-- Subtitle on Header -->
+    <text x="160" y="105" font-family="'Inter', -apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" font-weight="700" fill="#FFFFFF" opacity="0.9" text-anchor="middle" letter-spacing="1">
+      LAUNDRY DETERGENT
+    </text>
+
+    <!-- Center Pack Visual Motif -->
+    <circle cx="160" cy="180" r="38" fill="#E0F2F1" stroke="#E4E7EC" stroke-width="1.5" />
+    <circle cx="160" cy="180" r="30" fill="#FFFFFF" />
+
+    <!-- Quality Seal / Badge -->
+    <rect x="110" y="222" width="100" height="18" rx="9" fill="#00695C" opacity="0.08" />
+    <text x="160" y="234" font-family="'Inter', -apple-system, BlinkMacSystemFont, sans-serif" font-size="8" font-weight="800" fill="#00695C" text-anchor="middle" letter-spacing="0.5">
+      ACTIVE ENZYMES
+    </text>
+
+    <!-- Net Quantity / Weight -->
+    <text x="160" y="255" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" fill="#252B36" text-anchor="middle">
+      1 KG
+    </text>
+
+    <!-- Inner Illustration Symbol based on product type -->
+    <path d="M150 165 L170 165 L174 198 L146 198 Z" fill="#00695C" rx="2" />
+              <ellipse cx="160" cy="180" rx="8" ry="4" stroke="#00E676" stroke-width="2" fill="none" transform="rotate(45 160 180)" />
+              <ellipse cx="160" cy="180" rx="8" ry="4" stroke="#00E676" stroke-width="2" fill="none" transform="rotate(-45 160 180)" />
+  </g>
+</svg>

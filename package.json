@@ -1,0 +1,34 @@
+{
+  "name": "smartstock",
+  "version": "0.1.0",
+  "private": true,
+  "description": "SmartStock - Inventory Management & Retail BI System for Kenya",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev:client": "npm run dev --workspace=client",
+    "dev:server": "npm run dev --workspace=server",
+    "build:client": "npm run build --workspace=client",
+    "build:server": "npm run build --workspace=server",
+    "build": "npm run build:server && npm run build:client",
+    "test:server": "npm run test --workspace=server",
+    "test": "npm run test:server",
+    "lint:client": "npm run lint --workspace=client",
+    "db:generate": "npm run db:generate --workspace=server",
+    "db:migrate": "npm run db:migrate --workspace=server",
+    "db:deploy": "npm run db:deploy --workspace=server",
+    "seed:demo": "npm run seed:demo --workspace=server",
+    "verify:demo": "npm run verify:demo --workspace=server"
+  },
+  "keywords": [
+    "inventory",
+    "pos",
+    "retail",
+    "kenya",
+    "business-intelligence"
+  ],
+  "author": "SmartStock Team",
+  "license": "UNLICENSED"
+}

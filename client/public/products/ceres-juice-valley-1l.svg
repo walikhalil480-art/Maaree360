@@ -1,0 +1,39 @@
+<!-- SmartStock Supermarket Product Packshot: Ceres 100% Secrets of the Valley Juice 1 Litre -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="100%" height="100%">
+  <defs>
+    <radialGradient id="bgGrad_JUICE_003" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#F7F5F0" />
+    </radialGradient>
+    <filter id="packShadow" x="-10%" y="-10%" width="125%" height="130%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#172B4D" flood-opacity="0.12" />
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#172B4D" flood-opacity="0.08" />
+    </filter>
+    <linearGradient id="pGrad_JUICE_003" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A237E" />
+      <stop offset="100%" stop-color="#1A237E" stop-opacity="0.85" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="320" height="320" rx="16" fill="url(#bgGrad_JUICE_003)" />
+
+  <!-- Shadow under pack -->
+  <ellipse cx="160" cy="275" rx="72" ry="12" fill="#172B4D" opacity="0.10" />
+
+  <!-- Main Product Container (Square / Retail Packshot) -->
+  <g filter="url(#packShadow)">
+    
+      <!-- Gable Top -->
+      <polygon points="120,70 160,35 200,70" fill="#8E24AA" stroke="#E4E7EC" stroke-width="1.5" />
+      <!-- Carton Body -->
+      <rect x="110" y="70" width="100" height="190" rx="6" fill="#FFFFFF" stroke="#E4E7EC" stroke-width="2" />
+      <rect x="110" y="70" width="100" height="85" fill="url(#pGrad_JUICE_003)" />
+      <rect x="110" y="155" width="100" height="5" fill="#8E24AA" />
+      <text x="160" y="112" font-family="'Inter', -apple-system, sans-serif" font-size="16" font-weight="900" fill="#FFFFFF" text-anchor="middle">CERES</text>
+      <text x="160" y="134" font-family="'Inter', -apple-system, sans-serif" font-size="8" font-weight="700" fill="#FFFFFF" opacity="0.9" text-anchor="middle">SECRETS OF VALLEY - 1L</text>
+      <!-- Fresh Milk drop icon -->
+      <path d="M 160 178 C 153 192 150 200 150 206 A 10 10 0 0 0 170 206 C 170 200 167 192 160 178 Z" fill="#1A237E" opacity="0.85" />
+    
+  </g>
+</svg>
