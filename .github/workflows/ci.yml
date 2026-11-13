@@ -1,4 +1,4 @@
-name: SmartStock CI
+name: MAAREE 360 CI
 
 on:
   push:
@@ -6,12 +6,16 @@ on:
   pull_request:
     branches: [main, master]
 
-jobs:
-  build-and-check:
-    runs-on: ubuntu-latest
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
+jobs:
+  lint-and-typecheck:
+    name: Code Quality & Type Checks
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout Code
         uses: actions/checkout@v4
 
       - name: Setup Node.js 22
@@ -20,30 +24,116 @@ jobs:
           node-version: 22
           cache: 'npm'
 
-      - name: Install dependencies (Client)
+      - name: Install Client Dependencies
         run: npm ci
         working-directory: ./client
 
-      - name: Install dependencies (Server)
+      - name: Type Check Client
+        run: npx tsc --noEmit
+        working-directory: ./client
+
+      - name: Install Server Dependencies
         run: npm ci
         working-directory: ./server
 
       - name: Generate Prisma Client
-        run: npm run db:generate
+        run: npx prisma generate
         working-directory: ./server
         env:
-          DATABASE_URL: "postgresql://dummy:dummy@localhost:5432/dummy?schema=public"
+          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/smartstock_db?schema=public"
 
-      - name: Run Server Tests
+      - name: Type Check Server
+        run: npx tsc --noEmit
+        working-directory: ./server
+
+  test-backend:
+    name: Backend Integration Tests
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres_ci_test_password
+          POSTGRES_DB: smartstock_test_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Server Dependencies
+        run: npm ci
+        working-directory: ./server
+
+      - name: Apply Database Migrations
+        run: npx prisma migrate deploy
+        working-directory: ./server
+        env:
+          DATABASE_URL: "postgresql://postgres:postgres_ci_test_password@localhost:5432/smartstock_test_db?schema=public"
+
+      - name: Execute Server Vitest Suite
         run: npm test
         working-directory: ./server
         env:
-          DATABASE_URL: "postgresql://dummy:dummy@localhost:5432/dummy?schema=public"
+          DATABASE_URL: "postgresql://postgres:postgres_ci_test_password@localhost:5432/smartstock_test_db?schema=public"
+          SESSION_SECRET: "ci-test-super-secret-key-at-least-32-chars-long"
+          NODE_ENV: "test"
 
-      - name: Build Server
-        run: npm run build
+  validate-infra:
+    name: Validate Infrastructure (Docker & K8s)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Validate Docker Compose Configuration
+        run: docker compose config --quiet
+
+      - name: Set up Kubectl
+        uses: azure/setup-kubectl@v4
+        with:
+          version: 'v1.30.0'
+
+      - name: Validate Kubernetes Manifests (Dry Run)
+        run: kubectl apply --dry-run=client -k k8s/
+
+  build-production-artifacts:
+    name: Build Frontend & Backend Packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Build Backend Bundle
         working-directory: ./server
+        run: |
+          npm ci
+          npx prisma generate
+          npm run build
+        env:
+          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/smartstock_db?schema=public"
 
-      - name: Build Client
-        run: npm run build
+      - name: Build Frontend Bundle
         working-directory: ./client
+        run: |
+          npm ci
+          npm run build

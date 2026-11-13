@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: smartstock-config
+  namespace: smartstock
+  labels:
+    app.kubernetes.io/name: smartstock
+    app.kubernetes.io/part-of: maaree360
+data:
+  NODE_ENV: "production"
+  PORT: "5001"
+  DEFAULT_CURRENCY: "KES"
+  FRONTEND_URL: "http://smartstock.local"
+  COOKIE_NAME: "smartstock_session"
+  SESSION_TTL_DAYS: "7"
+  PRODUCTS_DIR: "/app/products"
+  UPLOAD_DIR: "/app/uploads"
+  POSTGRES_DB: "smartstock_db"

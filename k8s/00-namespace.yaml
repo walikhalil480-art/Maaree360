@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: smartstock
+  labels:
+    app.kubernetes.io/name: smartstock
+    app.kubernetes.io/part-of: maaree360

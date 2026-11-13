@@ -1,15 +1,16 @@
-# Till Pro — Retail Management System
+# MAAREE 360 — Enterprise Retail Management Platform
 
-> **Sell Smarter. Manage Better.**  
-> A premium Point of Sale (POS), real-time inventory control, and retail business intelligence platform tailored for supermarkets, minimarkets, grocery chains, electronics shops, and hardware retailers in Kenya and East Africa.
+> **Sell Smarter. Manage Better. Scale Effortlessly.**  
+> A professional, cloud-native multi-tenant Point of Sale (POS), real-time inventory control, and retail business intelligence platform engineered for multi-branch retail operations, supermarkets, wholesale distributors, and retail businesses across Kenya and East Africa.
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-19.x-61dafb.svg)](https://react.dev/)
 [![Node.js](https://img.shields.io/badge/Node.js-22.x-green.svg)](https://nodejs.org/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791.svg)](https://www.postgresql.org/)
 [![Prisma](https://img.shields.io/badge/Prisma-ORM-2d3748.svg)](https://www.prisma.io/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.x-38b2ac.svg)](https://tailwindcss.com/)
-[![Vitest](https://img.shields.io/badge/Vitest-237_Tests_Passing-brightgreen.svg)](https://vitest.dev/)
+[![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED.svg)](https://www.docker.com/)
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-Minikube%20Ready-326CE5.svg)](https://kubernetes.io/)
+[![GitHub Actions](https://img.shields.io/badge/CI%2FCD-GitHub_Actions-2088FF.svg)](https://github.com/features/actions)
 [![Currency](https://img.shields.io/badge/Currency-KES_(Kenyan_Shilling)-emerald.svg)](#currency--localization)
 
 ---
@@ -17,444 +18,338 @@
 ## Table of Contents
 
 1. [Executive Overview](#executive-overview)
-2. [Application Visual Tour](#application-visual-tour)
-3. [Key Modules & Capabilities](#key-modules--capabilities)
-4. [System Architecture](#system-architecture)
-5. [Technology Stack](#technology-stack)
-6. [Getting Started & Installation](#getting-started--installation)
-7. [Default Credentials & Test Accounts](#default-credentials--test-accounts)
-8. [Database Schema Overview](#database-schema-overview)
-9. [API Route Reference](#api-route-reference)
-10. [Hardware Peripherals & POS Integration](#hardware-peripherals--pos-integration)
-11. [Security & Multi-Tenant Isolation](#security--multi-tenant-isolation)
-12. [Currency, Payments & Localization](#currency-payments--localization)
-13. [Available Scripts & Maintenance](#available-scripts--maintenance)
-14. [License](#license)
+2. [Current Application Visual Tour](#current-application-visual-tour)
+3. [System Architecture](#system-architecture)
+4. [Containerization & Docker Quickstart](#containerization--docker-quickstart)
+5. [Kubernetes Orchestration & Minikube](#kubernetes-orchestration--minikube)
+6. [CI/CD Pipelines & GitHub Actions](#cicd-pipelines--github-actions)
+7. [Multi-Tenant Data Isolation & Security](#multi-tenant-data-isolation--security)
+8. [Platform Administration vs Business Administration](#platform-administration-vs-business-administration)
+9. [Default Test Accounts & Credentials](#default-test-accounts--credentials)
+10. [Configuration & Environment Variables](#configuration--environment-variables)
+11. [Repository & Release Management](#repository--release-management)
+12. [License](#license)
 
 ---
 
 ## Executive Overview
 
-**Till Pro** is a modern, enterprise-grade retail operating system designed to replace cumbersome legacy checkout machinery with a clean, fast, cloud-connected solution. Engineered with a focused palette of **Midnight Navy (`#0F172A`)** and **Emerald Green (`#059669`)**, paired with the high-legibility **Manrope** typeface, Till Pro delivers the polish, usability, and speed expected from modern enterprise SaaS platforms such as Stripe and Shopify.
+**MAAREE 360** is a production-grade, enterprise retail operating system designed for modern multi-store commerce. It bridges the gap between hardware POS terminals and cloud business intelligence with two distinct management planes:
 
-### Core Value Propositions
-
-- **Lightning-Fast Checkout:** Low-latency point-of-sale terminal supporting physical USB/Bluetooth barcode guns, device camera scanning, keyboard hotkeys (F12 checkout, Enter confirm), and manual SKU lookup.
-- **Strict Non-Negative Inventory Ledger:** Double-entry immutable stock ledger that mathematically prevents negative balances and maintains an airtight audit trail for every item received, sold, damaged, or adjusted.
-- **Authentic Supermarket Catalog:** Pre-seeded with over 200 real East African packaged supermarket goods (maize flour, cooking oils, dairy, sodas, cleaning supplies, personal care, electronics), complete with authentic manufacturer packaging photography, EAN-13 barcodes, and unit specifications.
-- **Kenyan Payment Flexibility:** Full support for Cash payments with instant change calculation, Safaricom M-Pesa mobile money reference tracking, Bank transfers, Card payments, and split-tender transactions.
-- **Comprehensive Financial Intelligence:** Executive P&L reporting, gross profit tracking, margin analytics, operating expense oversight, cashier shift reconciliations, and exportable PDF summaries.
-- **Granular Role-Based Access (RBAC):** Tailored views and security boundaries for Store Owners, Managers, Cashiers, and Stock Clerks.
+1. **Platform Administration Console (`/admin`)**: A centralized telemetry and governance hub for the SaaS platform owner to monitor registered customer shops, manage subscription tiers, audit platform security, track MRR, and review system health.
+2. **Business Administration & POS (`/dashboard`, `/pos`, etc.)**: An isolated operational environment for individual retail businesses (e.g. Shabeele Whole Sellers, Alla Amin, Khalil Academy, Raqiis Electronics) to manage employees, catalogue items, barcodes, suppliers, purchase orders, customer credits, and cash registers.
 
 ---
 
-## Application Visual Tour
+## Current Application Visual Tour
 
-The following screenshots capture real production interfaces of Till Pro running with realistic supermarket inventory data:
+The following production screenshots capture the latest user interface design, business identity header switcher, and platform administration console running with authentic business data:
 
-### 1. Executive Dashboard Overview
-Real-time sales revenue, estimated gross profit margins, FIFO inventory valuation, low-stock alerts, live transaction feeds, and inventory reorder priorities.
-![Till Pro Dashboard](docs/screenshots/dashboard.png)
+### 1. Business Executive Dashboard
+*Real-time sales revenue, estimated gross profit margins, inventory valuation, recent transaction feeds, and business identity badge in the global navigation header.*
+![MAAREE 360 Dashboard](docs/screenshots/dashboard.png)
 
-### 2. High-Performance Point of Sale (POS) Terminal
-Split-view checkout interface featuring instant catalog search, category chips, active basket with stepper controls, line-item discounts, and single-click checkout.
-![Till Pro Point of Sale](docs/screenshots/pos.png)
+### 2. Platform Command Centre (Super Admin Console)
+*Dedicated SaaS platform owner environment monitoring registered businesses, live user sessions, subscription plan distribution, and platform audit logs.*
+![MAAREE 360 Platform Command Centre](docs/screenshots/platform-console.png)
 
-### 3. Inventory & Physical Stock Control
-Comprehensive SKU ledger tracking physical on-hand units, safety thresholds, depleted items, and reorder requisitions.
-![Till Pro Inventory Management](docs/screenshots/inventory.png)
+### 3. High-Speed Point of Sale (POS) Terminal
+*Dual-pane cashier interface supporting USB/Bluetooth physical barcode guns, WebRTC camera scanning, category chips, active order basket, and keyboard hotkeys (F12).*
+![MAAREE 360 Point of Sale](docs/screenshots/pos.png)
 
-### 4. Product Catalog & Packshot Photography
-Retail goods management showcasing real packaged supermarket merchandise, margin calculations, barcode assignments, and category management.
-![Till Pro Products Catalog](docs/screenshots/products.png)
+### 4. Retail Products & Packshot Photography
+*Comprehensive SKU catalogue featuring real supermarket and wholesale goods, margin calculations, unit descriptors, and active stock levels.*
+![MAAREE 360 Products Catalog](docs/screenshots/products.png)
 
-### 5. Sales Transactions & Audit Ledger
-Complete chronological record of customer receipts, payment methods (Cash, M-Pesa, Card), cashier identifiers, and itemized transaction breakdowns.
-![Till Pro Sales Transactions](docs/screenshots/transactions.png)
+### 5. Strict Non-Negative Inventory Ledger
+*Double-entry stock movement tracking recording receipts, adjustments, damages, and POS deductions with automated safety threshold warnings.*
+![MAAREE 360 Inventory Management](docs/screenshots/inventory.png)
 
-### 6. Financial Reports & P&L Analytics
-Executive financial health reporting with revenue trends, COGS analysis, operating expenses, and printable management reports.
-![Till Pro Financial & Inventory Reports](docs/screenshots/reports.png)
+### 6. Sales Transactions & Audit History
+*Chronological register records detailing tender types (Cash, M-Pesa, Card), cashier identifiers, and itemized customer receipts.*
+![MAAREE 360 Sales Transactions](docs/screenshots/transactions.png)
 
-### 7. Customer Accounts & Credit Tracking
-Customer directory managing contact details, tax PINs, cumulative spending history, and return credits.
-![Till Pro Customer Accounts](docs/screenshots/customers.png)
+### 7. Financial Intelligence & P&L Reports
+*Comprehensive profit & loss summaries, gross margin tracking, operating expense categorization, and exportable business statements.*
+![MAAREE 360 Financial Reports](docs/screenshots/reports.png)
 
----
-
-## Key Modules & Capabilities
-
-### 🛒 Point of Sale (POS) Terminal
-- **Dual-Pane Interface:** High-density catalog grid on the left; real-time shopping cart and totals on the right.
-- **Hardware Scanner Guard:** `ScannerEventGuard` intercepts rapid keystrokes from USB/Bluetooth 1D/2D barcode scanners and resolves products in under 50ms without stealing focus from active inputs.
-- **Camera Barcode & QR Scanner:** Built-in WebRTC video scanner powered by `html5-qrcode` for instant scanning on tablets, laptops, and mobile devices without external hardware.
-- **Keyboard Shortcuts:** `F12` opens checkout instantly; `Esc` dismisses modals; `Enter` finalizes standard transactions.
-- **Multi-Tender Payments:** Cash (with change due calculation), M-Pesa (with transaction code validation), Card, Bank Transfer, and Split Payments.
-
-### 📦 Inventory & Stock Movement Ledger
-- **Strict Non-Negative Balance Enforcement:** Database transactions reject any sale or stock issue that would drive physical stock below zero.
-- **Movement Types:** Full ledger classification for `RECEIVE` (supplier shipments), `SALE` (POS deductions), `ADJUSTMENT` (cycle counts), `LOSS` (spoilage/breakage/theft), and `RETURN` (customer refunds).
-- **Automated Low-Stock Alerts:** Real-time visual warnings when current stock breaches defined minimum safety thresholds.
-
-### 🏷️ Product Catalog & Barcode Management
-- **Authentic Merchandise Photography:** Catalog pre-loaded with over 200 real supermarket items featuring authentic product packaging packshots.
-- **Multi-Code Mapping:** Products can hold multiple barcode identifiers (EAN-13 manufacturer codes, UPC-A, Code 128, and Till Pro proprietary shelf QR codes).
-- **Customer Price Checker:** Dedicated standalone kiosk mode (`/price-checker`) allowing shoppers to scan barcodes at shelf terminals to verify pricing and stock availability without revealing confidential cost prices or margins.
-
-### 💼 Cashier Shifts & Register Balancing
-- **Cash Drawer Reconciliation:** Mandatory shift opening with initial cash float, real-time transaction tracking, and end-of-shift closing reconciliations.
-- **Discrepancy Auditing:** Computes overage/shortage against expected drawer balances and records audit logs for management review.
-
-### 📊 Financial & Operating Reports
-- **Real-Time P&L Statement:** Net Revenue, Cost of Goods Sold (COGS), Gross Profit, Operating Expenses (rent, electricity, salaries, licenses), and Net Operating Profit.
-- **Period Comparisons:** Instant toggles for Today, Yesterday, This Week, Last Week, This Month, Last Month, and Custom Date Ranges.
-- **Export Capabilities:** One-click CSV and printable management PDF reports.
+### 8. Customer Accounts & Credit Ledger
+*Customer profiles tracking purchase history, tax PINs, contact information, and store return balances.*
+![MAAREE 360 Customer Directory](docs/screenshots/customers.png)
 
 ---
 
 ## System Architecture
 
+### 1. Cloud-Native Container Architecture
+
 ```mermaid
 flowchart TD
-    subgraph Client["Frontend Client (React 19 + TypeScript + Vite)"]
-        UI["UI Component Library (Manrope + Tailwind 4)"]
-        AppShell["Midnight Navy AppShell & Navigation"]
-        POS["POS Terminal & Cart Engine"]
-        HardwareGuard["Hardware Scanner & Camera Engine"]
-        State["Auth & Active Business Context"]
+    subgraph Client ["Client Browser / Mobile Scanner"]
+        User["Store Staff / Cashier / Super Admin"]
     end
 
-    subgraph Peripherals["Hardware & Peripherals Layer"]
-        USBScanner["USB / Bluetooth Barcode Scanners (HID)"]
-        CamScanner["WebRTC Device Video Camera"]
-        ReceiptPrinter["ESC/POS Thermal Printers (58mm / 80mm)"]
-        CashDrawer["RJ11 / RJ12 Electric Cash Drawer"]
+    subgraph Cluster ["Docker / Kubernetes Environment"]
+        Ingress["Ingress / Reverse Proxy"]
+        
+        subgraph FrontendPod ["Frontend Service (Port 80/8080)"]
+            Nginx["Nginx 1.27 Alpine (SPA Server)"]
+        end
+        
+        subgraph BackendPod ["Backend Service (Port 5001)"]
+            Express["Node.js 22 + Express API"]
+            Prisma["Prisma ORM"]
+        end
+        
+        subgraph Storage ["Stateful Storage"]
+            UploadsPVC[("Uploads Volume (PVC)")]
+            Postgres[("PostgreSQL 16 (StatefulSet)")]
+        end
     end
 
-    subgraph Gateway["Backend API Gateway (Node.js + Express)"]
-        AuthMiddleware["JWT & Argon2id Auth Guard"]
-        TenantGuard["Multi-Tenant Isolation Middleware"]
-        RBAC["Role-Based Access Control (Owner, Manager, Cashier, Clerk)"]
-        Validation["Zod Request Validation & Sanitization"]
+    User -->|HTTP / HTTPS| Ingress
+    Ingress -->|Static Assets & SPA| Nginx
+    Nginx -->|/api/* Reverse Proxy| Express
+    Nginx -->|/uploads/* & /products/*| Express
+    Express -->|Read / Write Media| UploadsPVC
+    Express -->|Prisma Connection Pool| Postgres
+```
+
+### 2. Multi-Tenant Isolation Architecture
+
+```mermaid
+flowchart LR
+    subgraph PlatformOwner ["Platform Owner (MAAREE 360)"]
+        PlatformAdmin["Platform Super Admin\n(owner@maaree360.com)"]
+        PlatformConsole["Platform Command Centre\n(/admin)"]
     end
 
-    subgraph Services["Core Business Services Layer"]
-        SaleService["Sale & Checkout Transaction Engine"]
-        InventoryService["Strict Non-Negative Stock Ledger Service"]
-        ReportService["P&L & Analytics Aggregation Service"]
-        ShiftService["Cashier Register & Float Service"]
-        ProductService["Product Catalog & Photo Service"]
+    subgraph TenantBoundary ["Airtight Multi-Tenant Separation"]
+        subgraph TenantA ["Shop A: Shabeele Whole Sellers"]
+            UserA["Employees & Cashiers"]
+            DataA[("Products, Sales, Stock\nbusinessId = '1f7894e6...'")]
+        end
+        
+        subgraph TenantB ["Shop B: Alla Amin"]
+            UserB["Employees & Cashiers"]
+            DataB[("Products, Sales, Stock\nbusinessId = 'edaf3399...'")]
+        end
     end
 
-    subgraph Database["Data Persistence (PostgreSQL 16)"]
-        Prisma["Prisma ORM Client"]
-        Tables[("20+ Relational Tables with Decimal Precision")]
-    end
-
-    USBScanner --> HardwareGuard
-    CamScanner --> HardwareGuard
-    HardwareGuard --> POS
-    POS --> ReceiptPrinter
-    POS --> CashDrawer
-
-    UI --> AppShell
-    AppShell --> Gateway
-    POS --> Gateway
-
-    Gateway --> AuthMiddleware
-    AuthMiddleware --> TenantGuard
-    TenantGuard --> RBAC
-    RBAC --> Validation
-
-    Validation --> SaleService
-    Validation --> InventoryService
-    Validation --> ReportService
-    Validation --> ShiftService
-    Validation --> ProductService
-
-    SaleService --> Prisma
-    InventoryService --> Prisma
-    ReportService --> Prisma
-    ShiftService --> Prisma
-    ProductService --> Prisma
-
-    Prisma --> Tables
+    PlatformAdmin --> PlatformConsole
+    PlatformConsole -.->|Cross-Tenant Telemetry| TenantBoundary
+    UserA --> DataA
+    UserB --> DataB
+    UserA -.-x|ACCESS DENIED| DataB
+    UserB -.-x|ACCESS DENIED| DataA
 ```
 
 ---
 
-## Technology Stack
+## Containerization & Docker Quickstart
 
-| Domain | Technology | Version | Purpose & Architectural Rationale |
-| :--- | :--- | :--- | :--- |
-| **Frontend Framework** | React | 19.x | Modern concurrent rendering, fast reconciliation, robust component ecosystem |
-| **Language** | TypeScript | 5.x | End-to-end type safety between client and server data contracts |
-| **Build Tooling** | Vite | 6.x | Sub-second HMR dev server and optimized production rollup builds |
-| **Typography** | Manrope & JetBrains Mono | Google Fonts | Modern geometric sans-serif for UI; monospace tabular figures for currency |
-| **Styling** | Tailwind CSS | 4.x | Utility-first CSS engine with custom `@theme` brand color tokens |
-| **Icons** | Lucide React | Latest | Crisp, consistent SVG icons across all application views |
-| **Barcode Scanning** | html5-qrcode | 2.3.x | Client-side zero-latency video barcode & QR code decoding |
-| **Backend Runtime** | Node.js | 22.x LTS | High-throughput asynchronous event-driven JavaScript/TypeScript runtime |
-| **API Framework** | Express | 4.x | Mature, battle-tested RESTful routing and middleware pipeline |
-| **Database** | PostgreSQL | 16 | ACID-compliant relational storage with strict foreign keys and transactions |
-| **ORM** | Prisma | 5.x | Type-safe query building, migrations, and declarative schema modeling |
-| **Authentication** | Argon2id & JWT | `@node-rs/argon2` | Industry gold-standard password hashing and cryptographically signed tokens |
-| **Testing** | Vitest & Supertest | Latest | Fast isolated unit and API integration testing suite (237 tests) |
-
----
-
-## Getting Started & Installation
+MAAREE 360 is fully containerized using multi-stage, secure Dockerfiles and orchestrated via Docker Compose.
 
 ### Prerequisites
 
-Ensure you have the following installed on your host machine:
-- **Node.js**: v18.0.0 or later (v22.x LTS recommended)
-- **npm**: v9.0.0 or later
-- **PostgreSQL**: v14.0 or later (running locally or via Docker)
+- [Docker Engine](https://docs.docker.com/engine/) (v24+)
+- [Docker Compose](https://docs.docker.com/compose/) (v2.20+)
 
-### 1. Clone the Repository
+### Launching the Stack
 
-```bash
-git clone https://github.com/your-org/smartstock.git
-cd smartstock
-```
-
-### 2. Configure Backend Environment
-
-Navigate to the `server` directory and copy the environment template:
+To build and start the entire stack (Database, Backend API, and Frontend Nginx) with automatic data restoration:
 
 ```bash
-cd server
-cp .env.example .env
+# Clone the repository
+git clone https://github.com/your-org/maaree360.git
+cd maaree360
+
+# Start all services in the background
+docker compose up -d
 ```
 
-Verify your `server/.env` configuration:
+### Verified Service Ports
+
+| Service | Container Port | Published Host Port | Purpose | Health Check |
+|---|---|---|---|---|
+| `smartstock_frontend` | 80 | **8080** | React SPA + Nginx Reverse Proxy | `http://localhost:8080/healthz` |
+| `smartstock_backend` | 5001 | **5001** | Node.js Express REST API | `http://localhost:5001/api/v1/health` |
+| `smartstock_db` | 5432 | **5433** | PostgreSQL 16 Database | `pg_isready -U postgres -d smartstock_db` |
+
+> [!NOTE]
+> The database host port is published on `5433` by default to avoid conflicts with any local PostgreSQL instance installed on the host machine.
+
+### Checking Container Health
+
+```bash
+docker compose ps
+```
+
+### Stopping the Stack
+
+```bash
+# Stop containers while preserving database volume
+docker compose down
+
+# Stop containers and remove volumes (clean wipe)
+docker compose down -v
+```
+
+---
+
+## Kubernetes Orchestration & Minikube
+
+All production Kubernetes manifests are organized cleanly inside the [`k8s/`](file:///e:/SmartStock/k8s) directory and support declarative deployment via Kustomize.
+
+### Manifest Structure
+
+```
+k8s/
+├── 00-namespace.yaml             # Dedicated 'smartstock' namespace
+├── 01-configmap.yaml             # Application configuration & URLs
+├── 02-secrets.yaml               # Database credentials & session keys
+├── 03-pvc.yaml                   # Persistent storage for uploads
+├── 04-postgres-statefulset.yaml  # PostgreSQL 16 StatefulSet & headless service
+├── 05-backend-deployment.yaml   # Express API Deployment (2 replicas, probes)
+├── 06-frontend-deployment.yaml  # Nginx Frontend Deployment (2 replicas, NodePort)
+├── 07-ingress.yaml              # Ingress routing for smartstock.local
+└── kustomization.yaml           # Single-command bundle configuration
+```
+
+### Deploying to Minikube
+
+```bash
+# 1. Start your Minikube cluster
+minikube start
+
+# 2. Build or load the container images into Minikube
+minikube image load smartstock-db:latest
+minikube image load smartstock-backend:latest
+minikube image load smartstock-frontend:latest
+
+# 3. Deploy the entire stack with Kustomize
+kubectl apply -k k8s/
+
+# 4. Monitor rollout status
+kubectl get pods -n smartstock -w
+```
+
+### Accessing the Application in Minikube
+
+```bash
+# Retrieve the auto-allocated NodePort service URL
+minikube service smartstock-frontend -n smartstock --url
+```
+
+---
+
+## CI/CD Pipelines & GitHub Actions
+
+Automated Continuous Integration and Continuous Delivery workflows are located in [`.github/workflows/`](file:///e:/SmartStock/.github/workflows):
+
+### 1. Continuous Integration (`ci.yml`)
+
+Triggers on every `push` and `pull_request` targeting `main` or `master`:
+- **Code Quality & Type Checks:** Runs `tsc --noEmit` across both `client/` and `server/`.
+- **Backend Integration Tests:** Spins up an ephemeral `postgres:16-alpine` service container, applies Prisma migrations, and executes the complete 310-test Vitest suite.
+- **Infrastructure Validation:** Runs `docker compose config --quiet` and validates all Kubernetes manifests using `kubectl apply --dry-run=client -k k8s/`.
+- **Production Bundling:** Compiles client Vite distribution and server TypeScript dist.
+
+### 2. Continuous Delivery (`cd.yml`)
+
+Triggers on semantic git release tags (`v*.*.*`) or manual dispatch:
+- Builds multi-stage production Docker images using Docker Buildx and GitHub Actions layer cache.
+- Publishes images to **GitHub Container Registry (GHCR)**:
+  - `ghcr.io/<owner>/smartstock-frontend`
+  - `ghcr.io/<owner>/smartstock-backend`
+  - `ghcr.io/<owner>/smartstock-db`
+- Performs automated container vulnerability scanning with **Trivy**.
+
+---
+
+## Multi-Tenant Data Isolation & Security
+
+Every transactional entity in MAAREE 360 is strictly scoped to a `businessId` foreign key with composite database indices and server-side middleware verification:
+
+1. **Scoped Database Queries:** Every select, insert, update, and delete operation includes an explicit `where: { businessId }` clause.
+2. **Session Verification:** The authenticated user's session stores their active business context. Access to unauthorized businesses returns `403 Forbidden`.
+3. **Double-Entry Stock Ledger:** Inventory adjustments, sales, and requisitions require an immutable movement record; negative stock balances are rejected at the database level.
+4. **Security Headers:** HTTP responses enforce strict CSP, HSTS, X-Content-Type-Options: nosniff, X-Frame-Options: SAMEORIGIN, and CSRF token verification.
+
+---
+
+## Default Test Accounts & Credentials
+
+The pre-seeded database contains authentic Kenyan retail businesses ready for testing:
+
+### Platform Super Administrator (Platform Owner)
+
+| Role | Email | Password | Access Scope |
+|---|---|---|---|
+| **Platform Owner** | `owner@maaree360.com` | `Maaree360@Admin2026!` | Full Platform Command Centre (`/admin`) |
+
+### Business Tenant Accounts (Shabeele Whole Sellers)
+
+| Role | Email | Password | Access Scope |
+|---|---|---|---|
+| **Store Owner** | `owner@shabeele.com` | `Shabeele@2026!` | Shabeele Whole Sellers & Branch |
+| **Branch Manager** | `manager@shabeele.com` | `Shabeele@2026!` | Store Management & Stock Requisition |
+| **Cashier** | `cashier@shabeele.com` | `Shabeele@2026!` | POS Terminal & Register Checkout |
+
+---
+
+## Configuration & Environment Variables
+
+A template configuration file is provided in [`.env.example`](file:///e:/SmartStock/.env.example):
 
 ```env
+# Server Runtime
+NODE_ENV=production
 PORT=5001
-NODE_ENV=development
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/smartstock?schema=public"
-JWT_SECRET="your-super-secure-jwt-secret-key-32-chars-min"
-JWT_EXPIRES_IN="7d"
-CORS_ORIGIN="http://localhost:5173"
-DEFAULT_CURRENCY="KES"
-TIMEZONE="Africa/Nairobi"
+FRONTEND_PORT=8080
+BACKEND_PORT=5001
+FRONTEND_URL=http://localhost:8080
+
+# PostgreSQL 16 Database
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DB=smartstock_db
+POSTGRES_PORT=5433
+DATABASE_URL=postgresql://postgres:postgres@db:5432/smartstock_db?schema=public
+
+# Localization & Currency
+DEFAULT_CURRENCY=KES
+
+# Session & Authentication
+SESSION_SECRET=smartstock-production-super-secret-key-32chars
+COOKIE_NAME=smartstock_session
+SESSION_TTL_DAYS=7
+
+# Media Directories
+PRODUCTS_DIR=/app/products
+UPLOAD_DIR=/app/uploads
 ```
 
-### 3. Install Dependencies & Setup Database
-
-```bash
-# In the server directory:
-npm install
-
-# Run Prisma migrations to generate the database schema:
-npx prisma migrate dev
-
-# Seed database with sample businesses, staff accounts, and 200+ real Kenyan supermarket products:
-npm run seed:kenya-products
-```
-
-### 4. Setup Frontend Client
-
-Open a second terminal window, navigate to the `client` directory, and install packages:
-
-```bash
-cd client
-npm install
-```
-
-### 5. Start Development Servers
-
-**Start the Backend API Server:**
-```bash
-# Inside /server
-npm run dev
-# Server starts on http://localhost:5001
-```
-
-**Start the Frontend Application:**
-```bash
-# Inside /client
-npm run dev
-# Frontend starts on http://localhost:5173
-```
-
-Visit **`http://localhost:5173`** in your browser to access Till Pro.
-
 ---
 
-## Default Credentials & Test Accounts
+## Repository & Release Management
 
-The seed script creates pre-configured demo businesses with staff members across all four permission tiers:
+### Git Workflow & Branch Protections
 
-| Email Address | Password | Role | Assigned Store | Permissions Summary |
-| :--- | :--- | :--- | :--- | :--- |
-| `walikhalil480@gmail.com` | `Password123` | **OWNER** | Khalil Academy & City General | Full system access, financial reports, user invites, settings |
-| `owner@smartstock.co.ke` | `OwnerPassword123!` | **OWNER** | SmartStock Demo Mini-Mart | Full administrator and financial access |
-| `manager@smartstock.co.ke` | `ManagerPassword123!` | **MANAGER** | SmartStock Demo Mini-Mart | POS, inventory adjustments, reports, shift oversight |
-| `cashier@smartstock.co.ke` | `CashierPassword123!` | **CASHIER** | SmartStock Demo Mini-Mart | POS checkout, returns, price checking, shift register |
-| `clerk@smartstock.co.ke` | `ClerkPassword123!` | **STOCK_CLERK** | SmartStock Demo Mini-Mart | Inventory receiving, stock counts, purchase order receiving |
+- `main`: Protected branch. Direct pushes are disabled; all changes require an approved Pull Request and green CI status.
+- `feat/*`: Feature branches for new functionality.
+- `fix/*`: Bug fix branches.
+- `chore/*` / `infra/*`: DevOps and infrastructure maintenance.
 
----
+### Conventional Commits & Versioning
 
-## Database Schema Overview
-
-Till Pro uses Prisma ORM with strict decimal precision for all monetary and fractional quantity values.
-
-```mermaid
-erDiagram
-    Business ||--o{ UserBusiness : "employs"
-    User ||--o{ UserBusiness : "participates in"
-    Business ||--o{ Product : "owns"
-    Category ||--o{ Product : "categorizes"
-    Product ||--o{ ProductCode : "identified by"
-    Product ||--o| StockLevel : "current balance"
-    Product ||--o{ StockMovement : "audit ledger"
-    Business ||--o{ Sale : "records"
-    Sale ||--o{ SaleItem : "contains"
-    Sale ||--o{ Payment : "settled with"
-    Customer ||--o{ Sale : "transacts"
-    Supplier ||--o{ PurchaseOrder : "supplies"
-    PurchaseOrder ||--o{ PurchaseOrderItem : "items"
-    Business ||--o{ Expense : "incurs"
-    User ||--o{ CashierShift : "operates"
-```
-
-### Core Entities
-
-- **Business:** Multi-tenant root entity containing store name, currency, tax PIN, receipt header/footer, and regional settings.
-- **User & UserBusiness:** User credentials, password hashes, and store-specific role associations (`OWNER`, `MANAGER`, `CASHIER`, `STOCK_CLERK`).
-- **Product & Category:** Catalog items with SKU, unit of measure (Piece, kg, Pack, Litre), wholesale cost price, retail selling price, packshot photo URL, and safety stock threshold.
-- **ProductCode:** One-to-many barcode mappings (`BARCODE`, `QR`, `INTERNAL_SKU`).
-- **StockLevel & StockMovement:** Normalized current stock balances and immutable double-entry movement logs with before/after balances and user references.
-- **Sale, SaleItem & Payment:** Completed retail transactions, line items, itemized discounts, tax amounts, and payment tenders.
-- **CashierShift:** Cash register operational sessions tracking starting float, total transactions, cash payments, manual payouts, and physical counts at closing.
-- **Expense:** Operational overhead logs categorized by Rent, Utilities, Payroll, Logistics, Maintenance, and Taxes.
-
----
-
-## API Route Reference
-
-All API routes are prefixed with `/api/v1` and strictly enforce tenant isolation and role validation.
-
-### Authentication (`/api/v1/auth`)
-- `POST /register` — Create a new merchant user account
-- `POST /login` — Authenticate user and receive HttpOnly session cookies
-- `POST /logout` — Invalidate user session
-- `GET /me` — Retrieve active user profile and store memberships
-- `POST /change-password` — Update user password
-
-### Products & Catalog (`/api/v1/businesses/:businessId/products`)
-- `GET /` — List products with search, category filter, pagination, and stock status
-- `POST /` — Create a new product with optional image upload (multipart/form-data)
-- `GET /:id` — Get single product details, barcode codes, and stock balances
-- `PUT /:id` — Update product information, price, threshold, or image
-- `PATCH /:id/archive` — Soft-archive a discontinued product
-- `PATCH /:id/reactivate` — Restore an archived product
-
-### Inventory Control (`/api/v1/businesses/:businessId/inventory`)
-- `GET /` — List real-time inventory balances and summary KPI metrics
-- `GET /low-stock` — Fetch products at or below safety stock threshold
-- `POST /operations` — Record stock movement (`RECEIVE`, `ADJUSTMENT`, `LOSS`, `RETURN`)
-- `GET /movements` — Fetch immutable stock movement audit ledger
-- `GET /products/:productId/movements` — Fetch movement history for a specific product
-
-### Point of Sale & Checkout (`/api/v1/businesses/:businessId/sales`)
-- `POST /` — Process POS checkout, deduct stock, calculate change, and record ledger
-- `GET /` — Retrieve transaction history with date filters and payment breakdown
-- `GET /:id` — Retrieve receipt details for printing or reprint
-- `POST /:id/returns` — Process full or partial sales return and refund items to inventory
-
-### Reporting & Analytics (`/api/v1/businesses/:businessId/reports`)
-- `GET /summary` — Retrieve revenue, gross profit, margin %, and period comparisons
-- `GET /time-series` — Daily and hourly revenue trends for charts
-- `GET /top-products` — Highest revenue and highest volume products
-- `GET /turnover` — Inventory turnover ratio and velocity analysis
-- `GET /export` — Export financial records to CSV or management summary
-
-### Price Checker (`/api/v1/businesses/:businessId/codes`)
-- `GET /resolve?code=...` — Public customer-facing lookup returning product name, image, and selling price (omits cost price and stock levels)
-
----
-
-## Hardware Peripherals & POS Integration
-
-Till Pro is designed to integrate seamlessly with standard commercial retail hardware peripherals:
-
-### 1. Barcode Scanners (USB & Bluetooth)
-- Works out-of-the-box with any standard 1D/2D scanner configured in **USB HID Keyboard Emulation Mode** (Honeywell, Zebra, Datalogic, Eyoyo, Netum).
-- The frontend `ScannerEventGuard` detects character streams arriving at intervals under 40 milliseconds with terminating `Enter` pulses, immediately routing the scanned barcode to checkout without requiring cursor focus in the input field.
-
-### 2. Device Camera Scanning
-- Integrates `html5-qrcode` to utilize built-in webcams or mobile cameras.
-- Processes frames locally in Web Workers using WebAssembly/Canvas (zero server upload) for instantaneous decoding of EAN-13, UPC-A, Code 128, and QR codes.
-
-### 3. Thermal Receipt Printers (ESC/POS)
-- Supports 58mm and 80mm thermal receipt printers via USB, Bluetooth, or LAN.
-- The built-in receipt template (`ReceiptModal.tsx`) formats clean monospace receipts with store branding, cashier details, tax breakdowns, M-Pesa transaction reference codes, and customer change.
-- Supports browser printing styles (`@media print`) and native raw byte ESC/POS command sequences.
-
-### 4. Cash Drawers
-- Connects via standard RJ11/RJ12 drawer kick cables through the receipt printer.
-- Automatically triggers drawer opening pulse upon finalizing Cash transactions.
-
----
-
-## Security & Multi-Tenant Isolation
-
-Till Pro enforces strict defense-in-depth security principles:
-
-1. **Password Security:** Passwords are encrypted using **Argon2id** (`@node-rs/argon2`), providing state-of-the-art resistance against GPU-accelerated brute-force attacks.
-2. **Session Integrity:** Authentication tokens are stored in secure, `HttpOnly`, `SameSite=Lax` cookies, protecting user sessions against Cross-Site Scripting (XSS) exfiltration.
-3. **Multi-Tenant Boundaries:** Every query at the Prisma database layer enforces the `businessId` foreign key boundary. Users cannot read, mutate, or inspect data belonging to another merchant.
-4. **Role Enforcement:** Sensitive endpoints (inviting staff, editing financial settings, processing returns, overriding discounts) are gated by `requireRole(['OWNER', 'MANAGER'])`.
-5. **Input Validation:** All incoming HTTP payloads are rigorously validated against strict **Zod** schemas before reaching controller logic.
-
----
-
-## Currency, Payments & Localization
-
-- **Currency Formatting:** Default currency is **KES (Kenyan Shilling)**, rendered consistently with `font-tabular` numeric styling: `KES 1,250.00`.
-- **Tax Calculation:** Supports Kenya Value Added Tax (VAT 16%) inclusive and exclusive line calculations.
-- **Safaricom M-Pesa Integration:** Dedicated mobile money workflow recording customer telephone numbers and unique M-Pesa confirmation codes (e.g., `QJD789X123`) on receipts and audit logs.
-- **Timezone:** Standardized on East Africa Time (`Africa/Nairobi`, UTC+3).
-
----
-
-## Available Scripts & Maintenance
-
-### Server Scripts (`/server`)
-
-| Script | Command | Purpose |
-| :--- | :--- | :--- |
-| `npm run dev` | `tsx watch src/index.ts` | Start backend with live TypeScript reload |
-| `npm run build` | `tsc` | Compile TypeScript into production JavaScript |
-| `npm start` | `node dist/index.js` | Run compiled production server |
-| `npm test` | `vitest run` | Execute entire test suite (237 tests) |
-| `npm run test:watch` | `vitest` | Run tests in interactive watch mode |
-| `npm run test:coverage`| `vitest run --coverage` | Generate test coverage report |
-| `npm run prisma:generate` | `prisma generate` | Generate Prisma ORM client |
-| `npm run prisma:migrate` | `prisma migrate dev` | Apply pending database migrations |
-| `npm run seed:kenya-products` | `tsx prisma/seed-kenya-products.ts` | Seed real supermarket products & photos |
-
-### Client Scripts (`/client`)
-
-| Script | Command | Purpose |
-| :--- | :--- | :--- |
-| `npm run dev` | `vite` | Start frontend development server on port 5173 |
-| `npm run build` | `tsc -b && vite build` | Type-check and build production bundle |
-| `npm run preview` | `vite preview` | Locally preview the production build |
-| `npm run lint` | `eslint .` | Lint client codebase for syntax and style |
+Follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
+- `feat(pos)`: Add barcode gun timeout guard
+- `fix(tenant)`: Enforce business boundary on customer credit balances
+- `infra(k8s)`: Add readiness and liveness probes to backend deployment
 
 ---
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-<p align="center">
-  <strong>Till Pro</strong> &bull; Sell Smarter. Manage Better.<br />
-  Designed &amp; Engineered for Modern Retail Commerce.
-</p>
+Proprietary — All rights reserved © MAAREE 360.

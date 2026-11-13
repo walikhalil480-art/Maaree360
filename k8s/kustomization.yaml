@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: smartstock
+
+resources:
+  - 00-namespace.yaml
+  - 01-configmap.yaml
+  - 02-secrets.yaml
+  - 03-pvc.yaml
+  - 04-postgres-statefulset.yaml
+  - 05-backend-deployment.yaml
+  - 06-frontend-deployment.yaml
+  - 07-ingress.yaml
+
+labels:
+  - pairs:
+      app.kubernetes.io/part-of: maaree360
+      app.kubernetes.io/managed-by: kustomize

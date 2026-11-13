@@ -1,0 +1,6 @@
+FROM postgres:16-alpine
+
+# Copy database initialization SQL script
+COPY ./docker/db-init/01-restore-data.sql /docker-entrypoint-initdb.d/01-restore-data.sql
+
+EXPOSE 5432
